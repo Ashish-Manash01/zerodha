@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { TrendingUp, TrendingDown, Eye, EyeOff } from 'lucide-react';
 import { useMarket } from '../context/MarketContext';
-import { formatCurrency, formatNumber } from '../utils/helpers';
+import { formatCurrency } from '../utils/helpers';
 
 export const PortfolioCard: React.FC = () => {
   const { portfolio } = useMarket();

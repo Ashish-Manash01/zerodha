@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Header, PortfolioCard, OrderHistory } from '../components';
 import { useMarket } from '../context/MarketContext';
 
 export const Dashboard: React.FC = () => {
-  const { portfolio, holdings, orders } = useMarket();
+  const { holdings, orders } = useMarket();
 
   const topGainers = holdings
     .sort((a, b) => b.profitLossPercent - a.profitLossPercent)

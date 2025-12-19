@@ -289,7 +289,7 @@ export const apiService = {
     });
   },
 
-  removeFromWatchlist: async (symbol: string): Promise<boolean> => {
+  removeFromWatchlist: async (_symbol: string): Promise<boolean> => {
     return new Promise((resolve) => {
       setTimeout(() => resolve(true), 200);
     });

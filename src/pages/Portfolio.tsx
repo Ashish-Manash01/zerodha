@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, HoldingsTable, PortfolioCard } from '../components';
+import { Header, HoldingsTable } from '../components';
 import { useMarket } from '../context/MarketContext';
 import { formatCurrency } from '../utils/helpers';
 import { TrendingUp, TrendingDown, DollarSign } from 'lucide-react';

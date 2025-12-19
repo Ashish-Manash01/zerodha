@@ -14,7 +14,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserProfile | null>(null);
 
-  const login = useCallback(async (email: string, password: string) => {
+  const login = useCallback(async (email: string, _password: string) => {
     // Simulated login - replace with actual API call
     const mockUser: UserProfile = {
       id: '1',
@@ -32,7 +32,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem('user');
   }, []);
 
-  const signup = useCallback(async (name: string, email: string, password: string) => {
+  const signup = useCallback(async (name: string, email: string, _password: string) => {
     // Simulated signup - replace with actual API call
     const newUser: UserProfile = {
       id: Date.now().toString(),

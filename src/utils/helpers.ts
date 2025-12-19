@@ -1,4 +1,4 @@
-import { Stock, ChartData } from '../types';
+import { ChartData } from '../types';
 
 export const formatCurrency = (value: number): string => {
   return new Intl.NumberFormat('en-IN', {

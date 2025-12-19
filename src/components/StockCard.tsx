@@ -1,7 +1,7 @@
 import React from 'react';
 import { Stock } from '../types';
 import { TrendingUp, TrendingDown, Plus } from 'lucide-react';
-import { formatCurrency, formatNumber, getChangeColor, getChangeBgColor } from '../utils/helpers';
+import { formatCurrency, formatNumber, getChangeColor } from '../utils/helpers';
 
 interface StockCardProps {
   stock: Stock;

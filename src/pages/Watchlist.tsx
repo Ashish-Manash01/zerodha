@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Header, WatchlistTable, StockCard, TradeModal } from '../components';
+import { Header, WatchlistTable, TradeModal } from '../components';
 import { apiService } from '../services/api';
 import { WatchlistItem, Stock } from '../types';
 import { Plus } from 'lucide-react';
