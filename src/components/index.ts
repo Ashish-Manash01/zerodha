@@ -6,4 +6,6 @@ export { TradeModal } from './TradeModal';
 export { OrderHistory } from './OrderHistory';
 export { HoldingsTable } from './HoldingsTable';
 export { WatchlistTable } from './WatchlistTable';
-export { StockScreener } from './StockScreener';
+export { default as StockScreener } from './StockScreener';
+export { default as PortfolioAnalytics } from './PortfolioAnalytics';
+export { default as MarketInsights } from './MarketInsights';

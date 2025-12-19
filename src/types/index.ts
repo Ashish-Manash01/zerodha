@@ -34,6 +34,8 @@ export interface Order {
 }
 
 export interface Portfolio {
+  value: number;
+  invested: number;
   totalValue: number;
   totalInvested: number;
   totalProfitLoss: number;

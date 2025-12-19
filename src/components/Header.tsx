@@ -31,6 +31,12 @@ export const Header: React.FC = () => {
             <Link to="/watchlist" className="text-gray-600 hover:text-gray-900 font-medium">
               Watchlist
             </Link>
+            <Link to="/analytics" className="text-gray-600 hover:text-gray-900 font-medium">
+              Analytics
+            </Link>
+            <Link to="/insights" className="text-gray-600 hover:text-gray-900 font-medium">
+              Insights
+            </Link>
             <Link to="/screener" className="text-gray-600 hover:text-gray-900 font-medium">
               Screener
             </Link>
@@ -75,6 +81,12 @@ export const Header: React.FC = () => {
             </Link>
             <Link to="/watchlist" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">
               Watchlist
+            </Link>
+            <Link to="/analytics" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">
+              Analytics
+            </Link>
+            <Link to="/insights" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">
+              Insights
             </Link>
             <Link to="/screener" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">
               Screener

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header, StockScreener } from '../components';
 
-export const Screener: React.FC = () => {
+export default function Screener() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -16,4 +16,4 @@ export const Screener: React.FC = () => {
       </main>
     </div>
   );
-};
+}

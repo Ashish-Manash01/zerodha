@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header, MarketInsights } from '../components';
 
-export const Insights: React.FC = () => {
+export default function Insights() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -16,4 +16,4 @@ export const Insights: React.FC = () => {
       </main>
     </div>
   );
-};
+}

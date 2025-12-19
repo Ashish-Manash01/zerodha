@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header, PortfolioAnalytics } from '../components';
 
-export const Analytics: React.FC = () => {
+export default function Analytics() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -16,4 +16,4 @@ export const Analytics: React.FC = () => {
       </main>
     </div>
   );
-};
+}

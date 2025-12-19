@@ -10,7 +10,7 @@ interface Insights {
   mostActive: Stock[];
 }
 
-export const MarketInsights: React.FC = () => {
+export default function MarketInsights() {
   const { portfolio } = useMarket();
   const [insights, setInsights] = useState<Insights>({
     gainers: [],
@@ -131,4 +131,4 @@ export const MarketInsights: React.FC = () => {
       </div>
     </div>
   );
-};
+}

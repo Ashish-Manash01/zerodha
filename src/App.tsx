@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { MarketProvider } from './context/MarketContext';
-import { Login, Dashboard, Market, Portfolio, Watchlist, Screener } from './pages';
+import { Login, Dashboard, Market, Portfolio, Watchlist, Analytics, Insights, Screener } from './pages';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
@@ -41,6 +41,22 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Watchlist />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/analytics"
+        element={
+          <ProtectedRoute>
+            <Analytics />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/insights"
+        element={
+          <ProtectedRoute>
+            <Insights />
           </ProtectedRoute>
         }
       />

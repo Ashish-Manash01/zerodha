@@ -3,7 +3,7 @@ import { Search, Filter } from 'lucide-react';
 import { Stock } from '../types';
 import { apiService } from '../services/api';
 
-export const StockScreener: React.FC = () => {
+export default function StockScreener() {
   const [stocks, setStocks] = useState<Stock[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({
@@ -190,4 +190,4 @@ export const StockScreener: React.FC = () => {
       </div>
     </div>
   );
-};
+}
