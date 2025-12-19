@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+} from 'chart.js';
 import { Stock, ChartData } from '../types';
 import { generateChartData } from '../utils/helpers';
 import { X } from 'lucide-react';
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
 interface PriceChartProps {
   stock: Stock;
@@ -13,12 +26,67 @@ export const PriceChart: React.FC<PriceChartProps> = ({ stock, onClose }) => {
   const [chartData] = useState<ChartData[]>(generateChartData());
   const [timeframe, setTimeframe] = useState<'1D' | '1W' | '1M' | '3M' | '1Y'>('1M');
 
+  const data = {
+    labels: chartData.map((d) => d.time),
+    datasets: [
+      {
+        label: `${stock.symbol} Price`,
+        data: chartData.map((d) => d.price),
+        borderColor: '#2563eb',
+        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+        fill: true,
+        tension: 0.4,
+        borderWidth: 2,
+        pointRadius: 0,
+        pointHoverRadius: 6,
+        pointBackgroundColor: '#2563eb',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        padding: 12,
+        titleFont: { size: 14 },
+        bodyFont: { size: 13 },
+        callbacks: {
+          label: (context: any) => `₹${context.parsed.y.toFixed(2)}`,
+        },
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: false,
+        ticks: {
+          callback: (value: any) => `₹${value}`,
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.05)',
+        },
+      },
+      x: {
+        grid: {
+          display: false,
+        },
+      },
+    },
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
       <div className="flex justify-between items-center mb-4">
         <div>
           <h3 className="text-lg font-bold text-gray-900">{stock.symbol}</h3>
-          <p className="text-2xl font-bold text-gray-900">{stock.price.toFixed(2)}</p>
+          <p className="text-2xl font-bold text-gray-900">₹{stock.price.toFixed(2)}</p>
         </div>
         <button
           onClick={onClose}
@@ -44,25 +112,9 @@ export const PriceChart: React.FC<PriceChartProps> = ({ stock, onClose }) => {
         ))}
       </div>
 
-      <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="time" />
-          <YAxis />
-          <Tooltip
-            formatter={(value: any) => `₹${value.toFixed(2)}`}
-            labelFormatter={(label) => `${label}`}
-          />
-          <Line
-            type="monotone"
-            dataKey="price"
-            stroke="#2563eb"
-            dot={false}
-            strokeWidth={2}
-            isAnimationActive={false}
-          />
-        </LineChart>
-      </ResponsiveContainer>
+      <div style={{ height: '400px' }}>
+        <Line data={data} options={options} />
+      </div>
 
       <div className="grid grid-cols-2 gap-4 mt-6 text-sm border-t pt-4">
         <div>

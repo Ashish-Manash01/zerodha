@@ -1,6 +1,6 @@
-# Zerodha Clone - Stock Trading Platform
+# Zerodha - Stock Trading Platform
 
-A modern, fully-featured stock trading platform built with React, TypeScript, and Tailwind CSS. This application mimics the core functionality of Zerodha, India's largest stockbroker.
+A modern, fully-featured stock trading platform built with React, TypeScript, and Tailwind CSS. This application provides professional trading tools with real-time market data and advanced portfolio analytics.
 
 ## 🚀 Features
 
@@ -11,10 +11,10 @@ A modern, fully-featured stock trading platform built with React, TypeScript, an
 - **Account Information**: User profile and account details
 
 ### Market View
-- **Stock Listings**: Browse all available stocks with real-time prices
+- **Stock Listings**: Browse 20+ major Indian stocks with real-time prices
 - **Advanced Search**: Search stocks by symbol or company name
 - **Sorting Options**: Sort by name, price, or change percentage
-- **Price Charts**: Interactive candlestick charts with multiple timeframes (1D, 1W, 1M, 3M, 1Y)
+- **Price Charts**: Interactive Line charts with Chart.js (1D, 1W, 1M, 3M, 1Y)
 
 ### Trading Interface
 - **Market Orders**: Buy/Sell at current market price
@@ -27,7 +27,10 @@ A modern, fully-featured stock trading platform built with React, TypeScript, an
   - Quantity and average buy price
   - Current price and total value
   - Profit/Loss and percentage returns
-- **Performance Analytics**: Track gainers vs losers
+- **Portfolio Analytics**: 
+  - Sector allocation doughnut chart
+  - Top 5 holdings performance bar chart
+  - Detailed holdings table with P&L metrics
 - **Wealth Dashboard**: Comprehensive financial overview
 
 ### Watchlist
@@ -35,6 +38,18 @@ A modern, fully-featured stock trading platform built with React, TypeScript, an
 - **Price Monitoring**: Track real-time price changes
 - **Top Movers**: Quick view of most active stocks
 - **Market Trends**: Identify trending stocks at a glance
+
+### Market Insights
+- **Top Gainers**: Real-time list of best performing stocks
+- **Top Losers**: Identify struggling stocks
+- **Most Active**: Track stocks with highest trading volume
+- **Market Overview**: Portfolio value, cash, margin metrics
+
+### Stock Screener
+- **Advanced Filtering**: Filter by price range, P/E ratio, volume
+- **Search**: Find stocks by symbol or name
+- **Detailed Results**: View filtered stocks with key metrics
+- **Quick Analysis**: Identify investment opportunities
 
 ### User Authentication
 - **Login/Signup**: Secure authentication system
@@ -47,7 +62,7 @@ A modern, fully-featured stock trading platform built with React, TypeScript, an
 - **Build Tool**: Vite 5
 - **Styling**: Tailwind CSS 3
 - **Routing**: React Router v6
-- **Charts**: Recharts
+- **Charts**: Chart.js 4 with react-chartjs-2
 - **Icons**: Lucide React
 - **API Calls**: Axios
 - **State Management**: React Context API + Custom Hooks

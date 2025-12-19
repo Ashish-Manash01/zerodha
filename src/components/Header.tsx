@@ -15,7 +15,7 @@ export const Header: React.FC = () => {
             <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
               <span className="text-white font-bold text-lg">Z</span>
             </div>
-            <span className="hidden sm:inline font-bold text-lg text-gray-900">Zerodha Clone</span>
+            <span className="hidden sm:inline font-bold text-lg text-gray-900">Zerodha</span>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
@@ -30,6 +30,9 @@ export const Header: React.FC = () => {
             </Link>
             <Link to="/watchlist" className="text-gray-600 hover:text-gray-900 font-medium">
               Watchlist
+            </Link>
+            <Link to="/screener" className="text-gray-600 hover:text-gray-900 font-medium">
+              Screener
             </Link>
           </nav>
 
@@ -72,6 +75,9 @@ export const Header: React.FC = () => {
             </Link>
             <Link to="/watchlist" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">
               Watchlist
+            </Link>
+            <Link to="/screener" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">
+              Screener
             </Link>
           </nav>
         )}

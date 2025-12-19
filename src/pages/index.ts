@@ -3,3 +3,4 @@ export { Dashboard } from './Dashboard';
 export { Market } from './Market';
 export { Portfolio } from './Portfolio';
 export { Watchlist } from './Watchlist';
+export { Screener } from './Screener';
