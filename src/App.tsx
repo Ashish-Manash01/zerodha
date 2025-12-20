@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { MarketProvider } from './context/MarketContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { Login, Dashboard, Market, Portfolio, Watchlist } from './pages';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -52,11 +53,13 @@ function AppRoutes() {
 function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <MarketProvider>
-          <AppRoutes />
-        </MarketProvider>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <MarketProvider>
+            <AppRoutes />
+          </MarketProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

@@ -43,37 +43,84 @@ export const OrderHistory: React.FC<OrderHistoryProps> = ({ orders }) => {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-gray-200">
-                <th className="text-left py-3 px-4 font-semibold text-gray-900">Symbol</th>
-                <th className="text-left py-3 px-4 font-semibold text-gray-900">Type</th>
-                <th className="text-right py-3 px-4 font-semibold text-gray-900">Qty</th>
-                <th className="text-right py-3 px-4 font-semibold text-gray-900">Price</th>
-                <th className="text-right py-3 px-4 font-semibold text-gray-900">Total</th>
-                <th className="text-center py-3 px-4 font-semibold text-gray-900">Status</th>
-                <th className="text-left py-3 px-4 font-semibold text-gray-900">Time</th>
+                <th className="text-left py-3 px-4 font-semibold text-gray-900">
+                  Symbol
+                </th>
+                <th className="text-left py-3 px-4 font-semibold text-gray-900">
+                  Side
+                </th>
+                <th className="text-left py-3 px-4 font-semibold text-gray-900">
+                  Order Type
+                </th>
+                <th className="text-right py-3 px-4 font-semibold text-gray-900">
+                  Qty
+                </th>
+                <th className="text-right py-3 px-4 font-semibold text-gray-900">
+                  Price
+                </th>
+                <th className="text-right py-3 px-4 font-semibold text-gray-900">
+                  Total
+                </th>
+                <th className="text-center py-3 px-4 font-semibold text-gray-900">
+                  Status
+                </th>
+                <th className="text-left py-3 px-4 font-semibold text-gray-900">
+                  Time
+                </th>
               </tr>
             </thead>
+
             <tbody>
               {orders.map((order) => (
-                <tr key={order.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 font-semibold text-gray-900">{order.symbol}</td>
+                <tr
+                  key={order.id}
+                  className="border-b border-gray-100 hover:bg-gray-50"
+                >
+                  <td className="py-3 px-4 font-semibold text-gray-900">
+                    {order.symbol}
+                  </td>
+
+                  {/* BUY / SELL */}
                   <td className="py-3 px-4">
                     <span
                       className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                        order.type === 'BUY' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                        order.side === 'BUY'
+                          ? 'bg-green-100 text-green-700'
+                          : 'bg-red-100 text-red-700'
                       }`}
                     >
-                      {order.type}
+                      {order.side}
                     </span>
                   </td>
-                  <td className="py-3 px-4 text-right">{order.quantity}</td>
-                  <td className="py-3 px-4 text-right">{formatCurrency(order.price)}</td>
-                  <td className="py-3 px-4 text-right font-semibold">{formatCurrency(order.totalValue)}</td>
+
+                  {/* MARKET / LIMIT / STOP_LOSS */}
+                  <td className="py-3 px-4 text-gray-700">
+                    {order.orderType}
+                  </td>
+
+                  <td className="py-3 px-4 text-right">
+                    {order.quantity}
+                  </td>
+
+                  <td className="py-3 px-4 text-right">
+                    {formatCurrency(order.price)}
+                  </td>
+
+                  <td className="py-3 px-4 text-right font-semibold">
+                    {formatCurrency(order.totalValue)}
+                  </td>
+
                   <td className="py-3 px-4 text-center">
-                    <div className={`inline-flex items-center space-x-1 px-3 py-1 rounded-full ${getStatusColor(order.status)}`}>
+                    <div
+                      className={`inline-flex items-center space-x-1 px-3 py-1 rounded-full ${getStatusColor(
+                        order.status
+                      )}`}
+                    >
                       {getStatusIcon(order.status)}
                       <span>{order.status}</span>
                     </div>
                   </td>
+
                   <td className="py-3 px-4 text-gray-600 text-xs">
                     {order.timestamp.toLocaleString()}
                   </td>

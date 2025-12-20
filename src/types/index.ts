@@ -22,14 +22,32 @@ export interface Holding {
   profitLossPercent: number;
 }
 
+export type OrderType = 'MARKET' | 'LIMIT' | 'STOP_LOSS';
+export type OrderStatus = 'PENDING' | 'COMPLETED' | 'CANCELLED';
+export type OrderSide = 'BUY' | 'SELL';
+
 export interface Order {
   id: string;
   symbol: string;
-  type: 'BUY' | 'SELL';
+  side: OrderSide;
   quantity: number;
   price: number;
-  status: 'PENDING' | 'COMPLETED' | 'CANCELLED';
+  orderType: OrderType;
+  status: OrderStatus;
   timestamp: Date;
+  totalValue: number;
+  limitPrice?: number;
+  stopPrice?: number;
+}
+
+export interface Trade {
+  id: string;
+  symbol: string;
+  side: OrderSide;
+  quantity: number;
+  executionPrice: number;
+  timestamp: Date;
+  status: OrderStatus;
   totalValue: number;
 }
 
@@ -62,7 +80,6 @@ export interface WatchlistItem {
   changePercent: number;
 }
 
-/* ✅ ADD THIS */
 export interface ChartData {
   time: string;
   price: number;
