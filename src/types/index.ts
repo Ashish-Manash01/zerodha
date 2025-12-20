@@ -53,11 +53,6 @@ export interface UserProfile {
   avatar?: string;
 }
 
-export interface ChartData {
-  time: string;
-  price: number;
-}
-
 export interface WatchlistItem {
   id: string;
   symbol: string;

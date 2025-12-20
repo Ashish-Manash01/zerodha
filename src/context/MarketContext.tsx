@@ -13,6 +13,8 @@ interface MarketContextType {
 const MarketContext = createContext<MarketContextType | undefined>(undefined);
 
 const INITIAL_PORTFOLIO: Portfolio = {
+  value: 500000,
+  invested: 350000,
   totalValue: 500000,
   totalInvested: 350000,
   totalProfitLoss: 45000,

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { LogOut, Menu, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { PriceAlerts } from './PriceAlerts';
 
 export const Header: React.FC = () => {
   const { user, logout } = useAuth();
@@ -31,21 +32,13 @@ export const Header: React.FC = () => {
             <Link to="/watchlist" className="text-gray-600 hover:text-gray-900 font-medium">
               Watchlist
             </Link>
-            <Link to="/analytics" className="text-gray-600 hover:text-gray-900 font-medium">
-              Analytics
-            </Link>
-            <Link to="/insights" className="text-gray-600 hover:text-gray-900 font-medium">
-              Insights
-            </Link>
-            <Link to="/screener" className="text-gray-600 hover:text-gray-900 font-medium">
-              Screener
-            </Link>
           </nav>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
+            <PriceAlerts />
             {user && (
               <>
-                <div className="hidden sm:block text-right">
+                <div className="hidden sm:block text-right pr-4 border-r border-gray-200">
                   <p className="text-sm font-medium text-gray-900">{user.name}</p>
                   <p className="text-xs text-gray-500">{user.accountNumber}</p>
                 </div>
@@ -81,15 +74,6 @@ export const Header: React.FC = () => {
             </Link>
             <Link to="/watchlist" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">
               Watchlist
-            </Link>
-            <Link to="/analytics" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">
-              Analytics
-            </Link>
-            <Link to="/insights" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">
-              Insights
-            </Link>
-            <Link to="/screener" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">
-              Screener
             </Link>
           </nav>
         )}

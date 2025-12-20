@@ -1,21 +1,6 @@
 import React, { useState } from 'react';
-import { Line } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler,
-} from 'chart.js';
-import { Stock, ChartData } from '../types';
-import { generateChartData } from '../utils/helpers';
-import { X } from 'lucide-react';
-
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
+import { Stock } from '../types';
+import { X, TrendingUp, TrendingDown } from 'lucide-react';
 
 interface PriceChartProps {
   stock: Stock;
@@ -23,70 +8,21 @@ interface PriceChartProps {
 }
 
 export const PriceChart: React.FC<PriceChartProps> = ({ stock, onClose }) => {
-  const [chartData] = useState<ChartData[]>(generateChartData());
   const [timeframe, setTimeframe] = useState<'1D' | '1W' | '1M' | '3M' | '1Y'>('1M');
-
-  const data = {
-    labels: chartData.map((d) => d.time),
-    datasets: [
-      {
-        label: `${stock.symbol} Price`,
-        data: chartData.map((d) => d.price),
-        borderColor: '#2563eb',
-        backgroundColor: 'rgba(37, 99, 235, 0.1)',
-        fill: true,
-        tension: 0.4,
-        borderWidth: 2,
-        pointRadius: 0,
-        pointHoverRadius: 6,
-        pointBackgroundColor: '#2563eb',
-        pointBorderColor: '#fff',
-        pointBorderWidth: 2,
-      },
-    ],
-  };
-
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        padding: 12,
-        titleFont: { size: 14 },
-        bodyFont: { size: 13 },
-        callbacks: {
-          label: (context: any) => `₹${context.parsed.y.toFixed(2)}`,
-        },
-      },
-    },
-    scales: {
-      y: {
-        beginAtZero: false,
-        ticks: {
-          callback: (value: any) => `₹${value}`,
-        },
-        grid: {
-          color: 'rgba(0, 0, 0, 0.05)',
-        },
-      },
-      x: {
-        grid: {
-          display: false,
-        },
-      },
-    },
-  };
+  const isPositive = stock.change >= 0;
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
       <div className="flex justify-between items-center mb-4">
         <div>
           <h3 className="text-lg font-bold text-gray-900">{stock.symbol}</h3>
-          <p className="text-2xl font-bold text-gray-900">₹{stock.price.toFixed(2)}</p>
+          <div className="flex items-center gap-2 mt-1">
+            <p className="text-2xl font-bold text-gray-900">₹{stock.price.toFixed(2)}</p>
+            <div className={`flex items-center gap-1 ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
+              {isPositive ? <TrendingUp size={20} /> : <TrendingDown size={20} />}
+              <span className="font-semibold">{isPositive ? '+' : ''}{stock.change.toFixed(2)} ({stock.changePercent.toFixed(2)}%)</span>
+            </div>
+          </div>
         </div>
         <button
           onClick={onClose}
@@ -96,7 +32,7 @@ export const PriceChart: React.FC<PriceChartProps> = ({ stock, onClose }) => {
         </button>
       </div>
 
-      <div className="flex space-x-2 mb-4">
+      <div className="flex space-x-2 mb-6">
         {(['1D', '1W', '1M', '3M', '1Y'] as const).map((tf) => (
           <button
             key={tf}
@@ -112,26 +48,36 @@ export const PriceChart: React.FC<PriceChartProps> = ({ stock, onClose }) => {
         ))}
       </div>
 
-      <div style={{ height: '400px' }}>
-        <Line data={data} options={options} />
+      {/* Simple price movement indicator */}
+      <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+        <div className="text-center">
+          <p className="text-gray-600 text-sm">Price Chart Visualization</p>
+          <div className="mt-2 h-32 flex items-center justify-center text-gray-400">
+            <div className="text-center">
+              <p className="text-sm mb-2">Opening: ₹{(stock.price - stock.change).toFixed(2)}</p>
+              <p className="text-4xl font-bold text-blue-600">↗</p>
+              <p className="text-sm mt-2">Closing: ₹{stock.price.toFixed(2)}</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mt-6 text-sm border-t pt-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-t pt-4">
         <div>
-          <p className="text-gray-600">High</p>
+          <p className="text-gray-600 text-sm">High</p>
           <p className="font-semibold text-gray-900">₹{stock.high.toFixed(2)}</p>
         </div>
         <div>
-          <p className="text-gray-600">Low</p>
+          <p className="text-gray-600 text-sm">Low</p>
           <p className="font-semibold text-gray-900">₹{stock.low.toFixed(2)}</p>
         </div>
         <div>
-          <p className="text-gray-600">Volume</p>
+          <p className="text-gray-600 text-sm">Volume</p>
           <p className="font-semibold text-gray-900">{(stock.volume / 1000000).toFixed(1)}M</p>
         </div>
         <div>
-          <p className="text-gray-600">Market Cap</p>
-          <p className="font-semibold text-gray-900">{stock.marketCap}</p>
+          <p className="text-gray-600 text-sm">P/E Ratio</p>
+          <p className="font-semibold text-gray-900">{stock.pe.toFixed(2)}</p>
         </div>
       </div>
     </div>
