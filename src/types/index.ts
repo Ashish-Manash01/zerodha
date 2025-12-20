@@ -61,3 +61,9 @@ export interface WatchlistItem {
   change: number;
   changePercent: number;
 }
+
+/* ✅ ADD THIS */
+export interface ChartData {
+  time: string;
+  value: number;
+}
