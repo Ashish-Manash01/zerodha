@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { Bell, X, Plus, Trash2 } from 'lucide-react';
 
+/* -------------------- Types -------------------- */
+type AlertType = 'ABOVE' | 'BELOW';
+
 interface PriceAlert {
   id: string;
   symbol: string;
   targetPrice: number;
-  type: 'ABOVE' | 'BELOW';
+  type: AlertType;
   isActive: boolean;
 }
 
+/* -------------------- Component -------------------- */
 export const PriceAlerts: React.FC = () => {
   const [alerts, setAlerts] = useState<PriceAlert[]>([
     { id: '1', symbol: 'RELIANCE', targetPrice: 2800, type: 'ABOVE', isActive: true },
@@ -16,45 +20,54 @@ export const PriceAlerts: React.FC = () => {
   ]);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [newAlert, setNewAlert] = useState({
+
+  const [newAlert, setNewAlert] = useState<{
+    symbol: string;
+    targetPrice: number;
+    type: AlertType;
+  }>({
     symbol: '',
     targetPrice: 0,
-    type: 'ABOVE' as const,
+    type: 'ABOVE',
   });
 
+  /* -------------------- Handlers -------------------- */
   const handleAddAlert = () => {
-    if (newAlert.symbol && newAlert.targetPrice > 0) {
-      setAlerts([
-        ...alerts,
-        {
-          id: Date.now().toString(),
-          symbol: newAlert.symbol,
-          targetPrice: newAlert.targetPrice,
-          type: newAlert.type,
-          isActive: true,
-        },
-      ]);
-      setNewAlert({ symbol: '', targetPrice: 0, type: 'ABOVE' });
-      setIsOpen(false);
-    }
+    if (!newAlert.symbol || newAlert.targetPrice <= 0) return;
+
+    setAlerts((prev) => [
+      ...prev,
+      {
+        id: Date.now().toString(),
+        symbol: newAlert.symbol,
+        targetPrice: newAlert.targetPrice,
+        type: newAlert.type,
+        isActive: true,
+      },
+    ]);
+
+    setNewAlert({ symbol: '', targetPrice: 0, type: 'ABOVE' });
+    setIsOpen(false);
   };
 
   const handleDeleteAlert = (id: string) => {
-    setAlerts(alerts.filter((a) => a.id !== id));
+    setAlerts((prev) => prev.filter((a) => a.id !== id));
   };
 
   const handleToggleAlert = (id: string) => {
-    setAlerts(
-      alerts.map((a) =>
+    setAlerts((prev) =>
+      prev.map((a) =>
         a.id === id ? { ...a, isActive: !a.isActive } : a
       )
     );
   };
 
+  /* -------------------- UI -------------------- */
   return (
     <div className="relative">
+      {/* Bell Button */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsOpen((o) => !o)}
         className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition"
         title="Price Alerts"
       >
@@ -66,8 +79,10 @@ export const PriceAlerts: React.FC = () => {
         )}
       </button>
 
+      {/* Dropdown */}
       {isOpen && (
         <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
+          {/* Header */}
           <div className="p-4 border-b border-gray-200 flex justify-between items-center">
             <h3 className="font-bold text-gray-900">Price Alerts</h3>
             <button
@@ -99,15 +114,14 @@ export const PriceAlerts: React.FC = () => {
                       {alert.targetPrice.toFixed(2)}
                     </div>
                   </div>
-                  <div className="flex gap-2">
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={alert.isActive}
-                        onChange={() => handleToggleAlert(alert.id)}
-                        className="w-4 h-4"
-                      />
-                    </label>
+
+                  <div className="flex gap-2 items-center">
+                    <input
+                      type="checkbox"
+                      checked={alert.isActive}
+                      onChange={() => handleToggleAlert(alert.id)}
+                      className="w-4 h-4"
+                    />
                     <button
                       onClick={() => handleDeleteAlert(alert.id)}
                       className="text-red-600 hover:bg-red-50 p-1 rounded"
@@ -126,7 +140,12 @@ export const PriceAlerts: React.FC = () => {
               type="text"
               placeholder="Stock symbol"
               value={newAlert.symbol}
-              onChange={(e) => setNewAlert({ ...newAlert, symbol: e.target.value.toUpperCase() })}
+              onChange={(e) =>
+                setNewAlert({
+                  ...newAlert,
+                  symbol: e.target.value.toUpperCase(),
+                })
+              }
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-600 focus:border-transparent"
             />
 
@@ -136,7 +155,10 @@ export const PriceAlerts: React.FC = () => {
                 placeholder="Target price"
                 value={newAlert.targetPrice}
                 onChange={(e) =>
-                  setNewAlert({ ...newAlert, targetPrice: Number(e.target.value) })
+                  setNewAlert({
+                    ...newAlert,
+                    targetPrice: Number(e.target.value),
+                  })
                 }
                 className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               />
@@ -146,7 +168,7 @@ export const PriceAlerts: React.FC = () => {
                 onChange={(e) =>
                   setNewAlert({
                     ...newAlert,
-                    type: e.target.value as 'ABOVE' | 'BELOW',
+                    type: e.target.value as AlertType,
                   })
                 }
                 className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-600 focus:border-transparent"
