@@ -65,5 +65,5 @@ export interface WatchlistItem {
 /* ✅ ADD THIS */
 export interface ChartData {
   time: string;
-  value: number;
+  price: number;
 }
